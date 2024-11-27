@@ -1,5 +1,5 @@
 
-# Surya OCR 
+# Surya_OCR
 
 ## Overview
 This project provides an OCR (Optical Character Recognition) API built using **FastAPI** to process image and PDF files, extracting text content. It also includes utility functions for OCR processing using the **surya** OCR engine. The API allows users to upload individual files or zip archives containing multiple files, and it returns OCR results as text files. This system is designed for easy integration into larger workflows, providing fast and efficient text extraction.
@@ -11,9 +11,12 @@ This project provides an OCR (Optical Character Recognition) API built using **F
 - **Result Output:** OCR results are saved to text files, which can be downloaded individually or in a zip archive containing results for all processed files.
 - **Cleanup:** Automatically cleans up temporary directories used during processing to keep the system tidy.
 
+---
+
 ## Requirements
 To run this project, you need to have the following tools installed:
 - **Python 3.10+**
+- **Anaconda/Miniconda** (for managing the Conda environment)
 - **FastAPI** (for creating the API server)
 - **Uvicorn** (for running the FastAPI app)
 - **surya** OCR engine (for text recognition)
@@ -21,36 +24,43 @@ To run this project, you need to have the following tools installed:
 - **Pillow** (for image processing)
 - **zipfile** (for handling zip files)
 
-### Installation
-You need Python 3.10+ and **PyTorch** to use this project. If you are not using a Mac or a GPU machine, you may need to install the CPU version of **torch** first. Refer to the [PyTorch installation guide](https://pytorch.org/get-started/locally/) for specific instructions.
+---
 
-To install all dependencies, including **surya OCR**, follow these steps:
+## Setting up the Environment with Conda
 
-1. Install the required dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
+### 1. Install Conda
+If Conda is not already installed, download and install it from the [Miniconda](https://docs.conda.io/en/latest/miniconda.html) or [Anaconda](https://www.anaconda.com/) website.
 
-2. Install the **surya** OCR engine:
-   ```bash
-   pip install surya-ocr
-   ```
-   The model weights will automatically download the first time you run **surya**.
+### 2. Create a Conda Virtual Environment
+Run the following commands to set up and activate a Conda virtual environment for the project:
 
-If you need GPU support, ensure CUDA is properly installed for PyTorch.
+```bash
+# Create a new Conda environment
+conda create --name surya_ocr python=3.10 -y
 
-### Dependencies
-- fastapi
-- uvicorn
-- surya-ocr
-- pdf2image
-- Pillow
+# Activate the Conda environment
+conda activate surya_ocr
+```
 
-### Optional (for running with GPU support):
-- CUDA, TensorFlow, or PyTorch for enhanced OCR processing speed with GPU.
+### 3. Install Dependencies
+With the Conda environment activated, install the required dependencies:
+
+```bash
+# Install project dependencies
+pip install -r requirements.txt
+
+# Install surya OCR engine
+pip install surya-ocr
+```
+
+> **Note:** The model weights for the **surya** OCR engine will download automatically the first time you run the application.
+
+If you require GPU support, ensure CUDA is properly installed for PyTorch. Refer to the [PyTorch installation guide](https://pytorch.org/get-started/locally/) for details.
+
+---
 
 ## Project Structure
-```bash
+```plaintext
 OCR/
 ├── ocr_api/
 │   ├── main.py              # FastAPI server script
@@ -60,6 +70,8 @@ OCR/
 ├── requirements.txt         # Python dependencies for the project
 └── README.md                # Project documentation
 ```
+
+---
 
 ## Endpoints
 
@@ -74,15 +86,15 @@ The root endpoint returns a welcome message indicating the API is running.
 ```
 
 ### 2. `POST /process_ocr/`
-This endpoint accepts a single file (image or PDF) for OCR processing.
+Accepts a single file (image or PDF) for OCR processing.
 
 #### Request:
 - **Content-Type:** `multipart/form-data`
-- **Body:** Upload a single image or PDF file (PDF, PNG, JPG, JPEG, BMP, TIFF).
+- **Body:** Upload a single image or PDF file.
 
 #### Response:
-- **200 OK:** A text file containing the OCR results for the uploaded file.
-- **500 Internal Server Error:** If the file processing fails for any reason.
+- **200 OK:** Text file with OCR results.
+- **500 Internal Server Error:** Processing error.
 
 Example:
 ```bash
@@ -90,60 +102,61 @@ curl -X 'POST' 'http://127.0.0.1:8000/process_ocr/' -F 'file=@path_to_file.pdf'
 ```
 
 ### 3. `POST /process_folder/`
-This endpoint accepts a zip file containing multiple images or PDFs, processes each file inside, and returns a zip of the OCR results for all processed files.
+Accepts a zip file containing multiple images or PDFs and returns a zip of OCR results.
 
 #### Request:
 - **Content-Type:** `multipart/form-data`
 - **Body:** Upload a zip file containing images or PDFs.
 
 #### Response:
-- **200 OK:** A zip file containing text files for each processed file inside the zip.
-- **500 Internal Server Error:** If any errors occur during the batch processing.
+- **200 OK:** Zip file with OCR results.
+- **500 Internal Server Error:** Processing error.
 
 Example:
 ```bash
 curl -X 'POST' 'http://127.0.0.1:8000/process_folder/' -F 'zip_file=@path_to_folder.zip'
 ```
 
-## OCR Utility Functions
-
-### `ocr_utils.py`
-The utility functions in `ocr_utils.py` are responsible for the following tasks:
-- **Image/PDF Handling:** Convert PDFs to images or process image files directly.
-- **OCR Processing:** Perform OCR on the images using the surya OCR engine.
-- **Output Handling:** Save the OCR results to text files.
-
-Key functions:
-1. **`process_input(file_path)`**: Processes the uploaded file (image or PDF). For images, it returns the image object; for PDFs, it converts the pages to images.
-2. **`run_ocr_on_file(file_path, output_folder)`**: Runs OCR on a single file (image or PDF) and saves the extracted text.
-3. **`save_ocr_output(file_path, ocr_result, output_folder)`**: Saves the OCR result to a text file in the output folder.
+---
 
 ## How to Run
 
-### 1. Clone the repository:
+### 1. Clone the Repository
 ```bash
-git clone https://github.com/Meetdhote/Surya_ocr_api.git
-
-pip install -r requirements.txt
-
-cd ocr_api/
+git clone https://github.com/your-repository/OCR-API.git
+cd OCR-API
 ```
 
-### 2. Install dependencies:
+### 2. Activate the Conda Environment
 ```bash
-pip install surya-ocr
+conda activate surya_ocr
 ```
 
-### 3. Run the FastAPI server:
+### 3. Run the FastAPI Server
 ```bash
-uvicorn main:app --reload
+uvicorn ocr_api.main:app --reload
 ```
 This will start the server locally at `http://127.0.0.1:8000`.
 
-### 4. Access the API:
-Open your browser and go to:
-- **Root:** `http://127.0.0.1:8000/` (Welcome message)
-- **Swagger UI (API Docs):** `http://127.0.0.1:8000/docs` (Interactive API documentation)
-- **ReDoc Docs:** `http://127.0.0.1:8000/redoc` (Alternative API documentation)
+### 4. Access the API
+- **Root:** `http://127.0.0.1:8000/`
+- **Swagger UI (API Docs):** `http://127.0.0.1:8000/docs`
+- **ReDoc Docs:** `http://127.0.0.1:8000/redoc`
 
+---
 
+## Additional Notes
+- Ensure proper permissions for uploaded files and output directories.
+- Temporary files will be automatically cleaned up after processing.
+
+---
+
+## Dependencies
+- fastapi
+- uvicorn
+- surya-ocr
+- pdf2image
+- Pillow
+
+### Optional (for GPU Support):
+- CUDA, TensorFlow, or PyTorch for enhanced OCR processing speed.
