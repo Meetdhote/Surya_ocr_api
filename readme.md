@@ -123,7 +123,7 @@ Key functions:
 ### 1. Clone the repository:
 ```bash
 git clone https://github.com/Meetdhote/Surya_ocr_api.git
-cd OCR/ocr_api
+cd ocr_api/
 ```
 
 ### 2. Install dependencies:
