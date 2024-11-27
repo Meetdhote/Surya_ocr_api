@@ -1,5 +1,5 @@
 
-# OCR API and Utility Functions
+# Surya OCR 
 
 ## Overview
 This project provides an OCR (Optical Character Recognition) API built using **FastAPI** to process image and PDF files, extracting text content. It also includes utility functions for OCR processing using the **surya** OCR engine. The API allows users to upload individual files or zip archives containing multiple files, and it returns OCR results as text files. This system is designed for easy integration into larger workflows, providing fast and efficient text extraction.
@@ -121,8 +121,8 @@ Key functions:
 
 ### 1. Clone the repository:
 ```bash
-git clone https://github.com/your-repository/OCR-API.git
-cd OCR-API
+git clone https://github.com/Meetdhote/Surya_ocr_api.git
+cd OCR/ocr_api
 ```
 
 ### 2. Install dependencies:
