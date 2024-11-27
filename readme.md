@@ -123,12 +123,14 @@ Key functions:
 ### 1. Clone the repository:
 ```bash
 git clone https://github.com/Meetdhote/Surya_ocr_api.git
+
+pip install -r requirements.txt
+
 cd ocr_api/
 ```
 
 ### 2. Install dependencies:
 ```bash
-pip install -r requirements.txt
 pip install surya-ocr
 ```
 
