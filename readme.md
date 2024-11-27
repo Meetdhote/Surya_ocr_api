@@ -50,6 +50,7 @@ If you need GPU support, ensure CUDA is properly installed for PyTorch.
 - CUDA, TensorFlow, or PyTorch for enhanced OCR processing speed with GPU.
 
 ## Project Structure
+```bash
 OCR/
 ├── ocr_api/
 │   ├── main.py              # FastAPI server script
