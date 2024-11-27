@@ -1,0 +1,8 @@
+surya
+fastapi
+uvicorn
+python-multipart
+Pillow
+pdf2image
+
+
