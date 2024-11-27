@@ -123,8 +123,7 @@ curl -X 'POST' 'http://127.0.0.1:8000/process_folder/' -F 'zip_file=@path_to_fol
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/your-repository/OCR-API.git
-cd OCR-API
+git clone https://github.com/Meetdhote/Surya_ocr_api.git
 ```
 
 ### 2. Activate the Conda Environment
@@ -134,6 +133,7 @@ conda activate surya_ocr
 
 ### 3. Run the FastAPI Server
 ```bash
+cd ocr_api
 uvicorn ocr_api.main:app --reload
 ```
 This will start the server locally at `http://127.0.0.1:8000`.
